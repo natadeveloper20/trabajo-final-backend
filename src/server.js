@@ -9,9 +9,15 @@ const app = express();
 // Conectar a la base de datos
 connectDB();
 
+// Rutas
+const authRoutes = require('./routes/auth.routes');
+
 // Middlewares
 app.use(cors());
 app.use(express.json());
+
+// Montar rutas
+app.use('/api/auth', authRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
