@@ -1,22 +1,22 @@
-# ProjectHub - Backend 🚀
+# ProjectHub - Backend 
 
 Sistema de gestión de proyectos y tareas desarrollado con Node.js, Express y MongoDB. Este repositorio contiene la API REST lógica del Trabajo Integrador Final.
 
-## 📋 Características
+## Características
 - **Arquitectura en capas**: Routes → Controllers → Services → Repositories.
 - **Seguridad**: Hasheo de contraseñas con `bcryptjs` y autenticación vía `JWT` (JSON Web Tokens).
 - **Verificación por Email**: Implementada con `Nodemailer`.
 - **Relaciones**: Los proyectos pertenecen a usuarios y las tareas pertenecen a proyectos.
 - **Validación**: Uso de middlewares para validación de inputs y protección de rutas.
 
-## 🛠️ Tecnologías
+## Tecnologías
 - Node.js
 - Express
 - MongoDB (Mongoose)
 - JWT
 - Nodemailer
 
-## ⚙️ Instalación y Uso
+## Instalación y Uso
 
 1. Clonar el repositorio.
 2. Ejecutar `npm install` para instalar las dependencias.
@@ -33,7 +33,7 @@ Sistema de gestión de proyectos y tareas desarrollado con Node.js, Express y Mo
    ```
 4. Ejecutar `npm run dev` para iniciar en modo desarrollo.
 
-## 📡 Endpoints de la API
+## Endpoints de la API
 
 ### Autenticación
 - `POST /api/auth/register`: Registro de nuevo usuario.
