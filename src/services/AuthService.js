@@ -25,6 +25,12 @@ class AuthService {
         // Enviar email de verificación
         const verifyUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
         
+        // LOG PROFESIONAL PARA PRUEBAS (Copia este link en tu navegador si no usas Mailtrap)
+        console.log('\n------------------------------------------------');
+        console.log('✉️ ENLACE DE VERIFICACIÓN PARA NUEVO USUARIO:');
+        console.log(verifyUrl);
+        console.log('------------------------------------------------\n');
+        
         const message = `¡Bienvenido a ProjectHub! Por favor, verifica tu cuenta haciendo clic en el siguiente enlace: \n\n ${verifyUrl}`;
         const html = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">

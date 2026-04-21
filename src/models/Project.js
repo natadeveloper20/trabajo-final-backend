@@ -32,9 +32,8 @@ projectSchema.virtual('tasks', {
 });
 
 // Eliminar tareas asociadas cuando se borra un proyecto
-projectSchema.pre('remove', async function(next) {
+projectSchema.pre('remove', async function() {
     await this.model('Task').deleteMany({ project: this._id });
-    next();
 });
 
 module.exports = mongoose.model('Project', projectSchema);

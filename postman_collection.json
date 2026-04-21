@@ -1,7 +1,8 @@
 {
 	"info": {
-		"_postman_id": "0e76eb13-5542-4121-9842-d524a29a4712",
-		"name": "ProjectHub - API",
+		"_postman_id": "8f8e8b2b-6b2b-4b2b-8b2b-8f8e8b2b6b2b",
+		"name": "ProjectHub API",
+		"description": "Colección de endpoints para el Trabajo Integrador Final - ProjectHub (MERN)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -15,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Noe\",\n    \"lastName\": \"Mendieta\",\n    \"email\": \"noe@example.com\",\n    \"password\": \"123456\"\n}",
+							"raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"email\": \"test@example.com\",\n    \"password\": \"Admin123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,9 +24,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/register",
+							"raw": "{{base_url}}/auth/register",
 							"host": [
-								"{{baseUrl}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"auth",
@@ -42,7 +43,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\": \"noe@example.com\",\n    \"password\": \"123456\"\n}",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Admin123456\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -50,9 +51,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/auth/login",
+							"raw": "{{base_url}}/auth/login",
 							"host": [
-								"{{baseUrl}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"auth",
@@ -74,14 +75,14 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{jwtToken}}",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/projects",
+							"raw": "{{base_url}}/projects",
 							"host": [
-								"{{baseUrl}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"projects"
@@ -97,13 +98,13 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{jwtToken}}",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Trabajo UTN\",\n    \"description\": \"Proyecto final de PWA\"\n}",
+							"raw": "{\n    \"name\": \"Nuevo Proyecto\",\n    \"description\": \"Descripción del proyecto\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,9 +112,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/projects",
+							"raw": "{{base_url}}/projects",
 							"host": [
-								"{{baseUrl}}"
+								"{{base_url}}"
 							],
 							"path": [
 								"projects"
@@ -125,36 +126,14 @@
 			]
 		}
 	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
 	"variable": [
 		{
-			"key": "baseUrl",
-			"value": "http://localhost:5000/api",
-			"type": "string"
+			"key": "base_url",
+			"value": "http://localhost:5000/api"
 		},
 		{
-			"key": "jwtToken",
-			"value": "pega_tu_token_aqui",
-			"type": "string"
+			"key": "token",
+			"value": ""
 		}
 	]
 }
