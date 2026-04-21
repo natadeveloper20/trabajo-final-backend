@@ -10,18 +10,12 @@ class AuthService {
             throw new Error('El usuario ya está registrado');
         }
 
-        // Generar token de verificación
-        const verificationToken = crypto.randomBytes(20).toString('hex');
-        const verificationTokenExpire = Date.now() + 24 * 60 * 60 * 1000; // 24 horas
-
         const user = await UserRepository.create({
             ...userData,
-            verificationToken,
-            verificationTokenExpire
+            isVerified: true // Verificado por defecto para facilitar entrega
         });
 
-        // Retornar el usuario y el token (el token se enviará por email después)
-        return { user, verificationToken };
+        return { user };
     }
 
     async login(email, password) {
@@ -29,10 +23,6 @@ class AuthService {
 
         if (!user || !(await user.matchPassword(password))) {
             throw new Error('Credenciales inválidas');
-        }
-
-        if (!user.isVerified) {
-            throw new Error('Por favor, verifica tu email antes de iniciar sesión');
         }
 
         const token = generateToken(user._id);

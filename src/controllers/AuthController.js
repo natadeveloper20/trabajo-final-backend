@@ -5,44 +5,17 @@ const register = async (req, res) => {
     try {
         const { firstName, lastName, email, password } = req.body;
 
-        const { user, verificationToken } = await AuthService.register({
+        const { user } = await AuthService.register({
             firstName,
             lastName,
             email,
             password
         });
 
-        // Enviar email de verificación
-        const verificationUrl = `${process.env.FRONTEND_URL}/verify-email/${verificationToken}`;
-        
-        const message = `Bienvenido a ProjectHub. Por favor, verifica tu cuenta haciendo clic en el siguiente enlace: ${verificationUrl}`;
-        const html = `
-            <h1>Bienvenido a ProjectHub</h1>
-            <p>Por favor, verifica tu cuenta haciendo clic en el botón de abajo:</p>
-            <a href="${verificationUrl}" style="padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px;">Verificar Email</a>
-            <p>Si no creaste esta cuenta, ignora este mensaje.</p>
-        `;
-
-        try {
-            await sendEmail({
-                email: user.email,
-                subject: 'Verificación de Cuenta - ProjectHub',
-                message,
-                html
-            });
-
-            res.status(201).json({
-                success: true,
-                message: 'Usuario registrado. Por favor, revisa tu email para verificar tu cuenta.'
-            });
-        } catch (emailError) {
-            // Si falla el email, igual el usuario se creó, pero marcamos el error
-            console.error('Error al enviar email:', emailError);
-            res.status(201).json({
-                success: true,
-                message: 'Usuario registrado, pero hubo un problema al enviar el email de verificación.'
-            });
-        }
+        res.status(201).json({
+            success: true,
+            message: 'Usuario registrado con éxito. Ya puedes iniciar sesión.'
+        });
 
     } catch (error) {
         res.status(400).json({
