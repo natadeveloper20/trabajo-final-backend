@@ -11,6 +11,8 @@ connectDB();
 
 // Rutas
 const authRoutes = require('./routes/auth.routes');
+const projectRoutes = require('./routes/project.routes');
+const taskRoutes = require('./routes/task.routes');
 
 // Middlewares
 app.use(cors());
@@ -18,6 +20,8 @@ app.use(express.json());
 
 // Montar rutas
 app.use('/api/auth', authRoutes);
+app.use('/api/projects', projectRoutes);
+app.use('/api/tasks', taskRoutes);
 
 // Ruta de prueba
 app.get('/', (req, res) => {
