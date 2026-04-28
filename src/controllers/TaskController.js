@@ -1,80 +1,61 @@
 const TaskService = require('../services/TaskService');
+const asyncHandler = require('../utils/asyncHandler');
 
-const createTask = async (req, res) => {
-    try {
-        const task = await TaskService.createTask(req.body, req.user._id);
-        res.status(201).json({
-            success: true,
-            data: task
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
+// @desc    Crear una tarea
+// @route   POST /api/tasks
+// @access  Private
+const createTask = asyncHandler(async (req, res) => {
+    const task = await TaskService.createTask(req.body, req.user._id);
+    res.status(201).json({
+        success: true,
+        data: task
+    });
+});
 
-const getTasksByProject = async (req, res) => {
-    try {
-        const tasks = await TaskService.getTasksByProject(req.params.projectId, req.user._id);
-        res.status(200).json({
-            success: true,
-            count: tasks.length,
-            data: tasks
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
+// @desc    Obtener tareas de un proyecto
+// @route   GET /api/tasks/project/:projectId
+// @access  Private
+const getTasksByProject = asyncHandler(async (req, res) => {
+    const tasks = await TaskService.getTasksByProject(req.params.projectId, req.user._id);
+    res.status(200).json({
+        success: true,
+        count: tasks.length,
+        data: tasks
+    });
+});
 
-const getTask = async (req, res) => {
-    try {
-        const task = await TaskService.getTaskById(req.params.id, req.user._id);
-        res.status(200).json({
-            success: true,
-            data: task
-        });
-    } catch (error) {
-        res.status(404).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
+// @desc    Obtener una tarea por ID
+// @route   GET /api/tasks/:id
+// @access  Private
+const getTask = asyncHandler(async (req, res) => {
+    const task = await TaskService.getTaskById(req.params.id, req.user._id);
+    res.status(200).json({
+        success: true,
+        data: task
+    });
+});
 
-const updateTask = async (req, res) => {
-    try {
-        const task = await TaskService.updateTask(req.params.id, req.user._id, req.body);
-        res.status(200).json({
-            success: true,
-            data: task
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
+// @desc    Actualizar una tarea
+// @route   PUT /api/tasks/:id
+// @access  Private
+const updateTask = asyncHandler(async (req, res) => {
+    const task = await TaskService.updateTask(req.params.id, req.user._id, req.body);
+    res.status(200).json({
+        success: true,
+        data: task
+    });
+});
 
-const deleteTask = async (req, res) => {
-    try {
-        const response = await TaskService.deleteTask(req.params.id, req.user._id);
-        res.status(200).json({
-            success: true,
-            message: response.message
-        });
-    } catch (error) {
-        res.status(400).json({
-            success: false,
-            message: error.message
-        });
-    }
-};
+// @desc    Eliminar una tarea
+// @route   DELETE /api/tasks/:id
+// @access  Private
+const deleteTask = asyncHandler(async (req, res) => {
+    const response = await TaskService.deleteTask(req.params.id, req.user._id);
+    res.status(200).json({
+        success: true,
+        message: response.message
+    });
+});
 
 module.exports = {
     createTask,
@@ -83,3 +64,4 @@ module.exports = {
     updateTask,
     deleteTask
 };
+

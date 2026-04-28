@@ -1,76 +1,86 @@
-# ProjectHub - Backend
+# 🚀 ProjectHub - API REST (Backend)
 
-Sistema de gestión de proyectos y tareas desarrollado con el stack MERN (MongoDB, Express, Node.js). Este repositorio contiene la API REST lógica del Trabajo Integrador Final para la UTN.
+Sistema de gestión de proyectos y tareas desarrollado con el stack **MERN** (MongoDB, Express, Node.js). Este proyecto forma parte del Trabajo Integrador Final para la **UTN**.
 
-## Características Técnicas
-- **Arquitectura Robusta**: Implementación en capas (Routes → Controllers → Services → Repositories) para facilitar el escalado y mantenimiento.
-- **Seguridad de Nivel Producción**: 
-  - Hasheo de contraseñas con `bcryptjs` (salt 10).
-  - Autenticación vía `JWT` con tokens que expiran en 24h.
-  - Verificación de cuenta por email obligatoria mediante `Nodemailer`.
-- **Validación y Middleware**: Protección de rutas sensibles, manejo centralizado de errores y validación de esquemas con middlewares personalizados.
-- **Base de Datos**: MongoDB Atlas con relaciones relacionales simuladas mediante `ObjectId` y `.populate()`.
+## 📊 Arquitectura del Sistema
+Se ha implementado una **arquitectura en capas** sólida para garantizar la escalabilidad y facilidad de mantenimiento:
+- **Routes**: Definición de endpoints y aplicación de middlewares.
+- **Controllers**: Manejo de la lógica de petición/respuesta (Request/Response).
+- **Services**: Lógica de negocio pura y comunicación entre entidades.
+- **Repositories**: Abstracción del acceso a datos (Mongoose Queries).
+- **Models**: Definición de esquemas de datos con validaciones integradas.
 
-## Tecnologías Utilizadas
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **ORM**: Mongoose
-- **Seguridad**: JWT, BcryptJS, Crypto
-- **Envío de Emails**: Nodemailer (Configurado para SMTP)
+## 🔐 Seguridad y Validaciones
+- **Autenticación**: JWT (JSON Web Tokens) con expiración de 24h.
+- **Hashing**: Cifrado de contraseñas con `bcryptjs` en el modelo de usuario.
+- **Validación de Input**: Esquemas estrictos con `Joi` para asegurar la integridad de los datos.
+- **Email Verification**: Sistema obligatorio de activación de cuenta vía `Nodemailer`.
+- **Manejo de Errores**: Middleware centralizado para respuestas de error consistentes.
 
-## Instalación y Configuración
+## 🛠️ Instalación y Configuración
 
-1. **Clonar y Entrar**:
+1. **Clonar el repositorio**:
    ```bash
-   cd backend
+   git clone [URL-DEL-REPO]
+   cd ProjectHub/backend
    ```
-2. **Instalar Dependencias**:
+
+2. **Instalar dependencias**:
    ```bash
    npm install
    ```
-3. **Configurar Variables de Entorno**:
-   Crea un archivo `.env` basado en el siguiente ejemplo:
+
+3. **Configurar el entorno**:
+   Crea un archivo `.env` en la raíz de `backend/` usando como base el archivo `.env.example`:
    ```env
    PORT=5000
-   MONGODB_URI=mongodb+srv://tu_usuario:tu_password@cluster.mongodb.net/projecthub
-   JWT_SECRET=tu_secreto_super_seguro
+   MONGODB_URI=tu_conexion_mongodb_atlas
+   JWT_SECRET=tu_secreto_seguro
    JWT_EXPIRES_IN=24h
-   
-   # Configuración de Email (Mailtrap recomendado para pruebas)
    EMAIL_HOST=smtp.mailtrap.io
    EMAIL_PORT=2525
    EMAIL_USER=tu_usuario
    EMAIL_PASS=tu_password
-   
-   # Frontend URL para links de verificación
    FRONTEND_URL=http://localhost:5173
    ```
-4. **Iniciar**:
+
+4. **Iniciar servidor**:
    ```bash
    npm run dev
    ```
 
-## Endpoints de la API
+## 📋 Endpoints de la API
 
 ### Autenticación
-- `POST /api/auth/register`: Registro de usuario (envía email de verificación).
-- `POST /api/auth/login`: Login (bloqueado si no está verificado). Devuelve JWT.
-- `GET /api/auth/verify/:token`: Activa la cuenta del usuario.
+| Método | Ruta | Descripción | Acceso |
+|--------|------|-------------|--------|
+| POST | `/api/auth/register` | Registro de nuevo usuario | Público |
+| POST | `/api/auth/login` | Inicio de sesión (devuelve JWT) | Público |
+| GET | `/api/auth/verify/:token` | Verificación de email | Público |
 
-### Gestión de Proyectos (JWT Requerido)
-- `GET /api/projects`: Lista proyectos del usuario actual.
-- `POST /api/projects`: Crea un proyecto nuevo.
-- `GET /api/projects/:id`: Detalle de proyecto + lista de sus tareas (.populate).
-- `PUT /api/projects/:id`: Edita metadatos del proyecto.
-- `DELETE /api/projects/:id`: Elimina proyecto y limpia cascada de tareas.
+### Proyectos (Entidad Principal)
+| Método | Ruta | Descripción | Acceso |
+|--------|------|-------------|--------|
+| GET | `/api/projects` | Listar todos los proyectos | Privado |
+| POST | `/api/projects` | Crear nuevo proyecto | Privado |
+| GET | `/api/projects/:id` | Detalle de proyecto y sus tareas | Privado |
+| PUT | `/api/projects/:id` | Editar proyecto | Privado |
+| DELETE | `/api/projects/:id` | Eliminar proyecto y tareas en cascada | Privado |
 
-### Gestión de Tareas (JWT Requerido)
-- `POST /api/tasks`: Crea tarea vinculada a un proyecto.
-- `PUT /api/tasks/:id`: Actualiza estado (Pendiente/En Progreso/Completada).
-- `DELETE /api/tasks/:id`: Elimina tarea específica.
+### Tareas (Entidad Relacionada)
+| Método | Ruta | Descripción | Acceso |
+|--------|------|-------------|--------|
+| POST | `/api/tasks` | Crear tarea vinculada a proyecto | Privado |
+| PUT | `/api/tasks/:id` | Cambiar estado/prioridad | Privado |
+| DELETE | `/api/tasks/:id` | Eliminar tarea | Privado |
 
-## 📄 Licencia e Info
-Proyecto desarrollado por alumnos de la UTN para la cátedra de Programación Web Avanzada (PWA).
+## 🧪 Credenciales de Prueba (Para el Docente)
+Para facilitar la corrección, se proporcionan las siguientes credenciales de un usuario **YA VERIFICADO**:
+
+- **Email:** `profe.test@example.com`
+- **Password:** `Profe123456`
+- **Estado:** Ya verificado (Acceso directo al Dashboard)
 
 ---
-*Nota: Este proyecto incluye una colección de Postman (`postman_collection.json`) en la raíz para facilitar las pruebas técnicas.*
+**Desarrollado para:** UTN - Programación Web Avanzada.
+**URL Deploy API:** [Placeholder: Tu_URL_de_Render_o_Railway]

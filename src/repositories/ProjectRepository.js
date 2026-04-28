@@ -22,12 +22,8 @@ class ProjectRepository {
     }
 
     async delete(id, userId) {
-        const project = await Project.findOne({ _id: id, user: userId });
-        if (project) {
-            await project.remove();
-            return true;
-        }
-        return false;
+        const result = await Project.findOneAndDelete({ _id: id, user: userId });
+        return !!result;
     }
 }
 
