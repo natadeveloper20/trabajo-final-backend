@@ -43,12 +43,15 @@ Se ha implementado una **arquitectura en capas** sólida para garantizar la esca
    MONGODB_URI=tu_conexion_mongodb_atlas
    JWT_SECRET=tu_secreto_seguro
    JWT_EXPIRES_IN=24h
-   EMAIL_HOST=smtp.mailtrap.io
-   EMAIL_PORT=2525
+   EMAIL_HOST=smtp.gmail.com
+   EMAIL_PORT=465
    EMAIL_USER=tu_usuario
-   EMAIL_PASS=tu_password
+   EMAIL_PASS=tu_password_de_aplicacion
    FRONTEND_URL=http://localhost:5173
    ```
+
+5. **Documentación Postman**:
+   Se incluye el archivo `ProjectHub.postman_collection.json` en la raíz de este repositorio. Puedes importarlo en Postman para probar todos los endpoints de forma automática.
 
 4. **Iniciar servidor**:
    ```bash
